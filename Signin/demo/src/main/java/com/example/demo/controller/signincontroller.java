@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,4 +48,17 @@ public class SigninController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+@PutMapping("/signin/{id}")
+    public ResponseEntity<Signin> update(@PathVariable int id, @RequestBody Signin signin) {
+        return new ResponseEntity<>(signinService.update(id, signin), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/signin/{signinId}")
+    public ResponseEntity<Void> delete(@PathVariable int signinId) {
+        signinService.delete(signinId);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
